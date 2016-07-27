@@ -27,6 +27,13 @@ class CommentBox extends React.Component {
 }
 
 class Comment extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isAbusive: false
+    };
+  }
   render() {
     return(
       <div className="comment">
