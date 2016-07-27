@@ -1,4 +1,5 @@
 class CommentBox extends React.Component {
+
   constructor() {
     super();
 
@@ -8,12 +9,16 @@ class CommentBox extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this._fetchComments();
+  }
+
   render() {
     const comments = this._getComments();
     return(
       <div className="comment-box">
         <CommentForm addComment={this._addComment.bind(this)} />
-
+        <CommentAvatarList avatars={this._getAvatars()} />
         {this._getPopularMessage(comments.length)}
         <h3 className="comment-count">{this._getCommentsTitle(comments.length)}</h3>
         <div className="comment-list">
@@ -21,6 +26,10 @@ class CommentBox extends React.Component {
         </div>
       </div>
     );
+  }
+
+  _getAvatars() {
+    return this.state.comments.map(comment => comment.avatarUrl);
   }
 
   _getPopularMessage(commentCount) {
@@ -66,24 +75,22 @@ class CommentBox extends React.Component {
     });
   }
 
+  _fetchComments() {
+    $.ajax({
+      method: 'GET',
+      url: 'comments.json',
+      success: (comments) => {
+        this.setState({ comments });
+      }
+    });
+  }
+
   _deleteComment(commentID) {
     const comments = this.state.comments.filter(
       comment => comment.id !== commentID
     );
 
     this.setState({ comments });
-  }
-
-  _fetchComments() {
-    $.ajax({
-      method: 'GET',
-      url: 'comments.json',
-      success: (comments) => this.setState({comments})
-    });
-  }
-
-  componentWillMount() {
-    this._fetchComments();
   }
 }
 
@@ -182,5 +189,23 @@ class CommentForm extends React.Component {
     this._body.value = '';
 
     this.setState({ characters: 0  });
+  }
+}
+
+class CommentAvatarList extends React.Component {
+  render() {
+    const { avatars = [] } = this.props;
+    return (
+      <div className="comment-avatars">
+        <h4>Authors</h4>
+        <ul>
+          {avatars.map((avatarUrl, i) => (
+            <li key={i}>
+              <img src={avatarUrl} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 }
