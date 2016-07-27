@@ -108,14 +108,25 @@ class CommentBox extends React.Component {
 }
 
 class CommentForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      characters: 0
+    };
+  }
+
   render() {
     return (
       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
         <label>New comment</label>
         <div className="comment-form-fields">
-          <input placeholder="Name:" ref={(input) => this._author = input} />
-          <textarea placeholder="Comment:"ref={(textarea) => this._body = textarea}></textarea>
+          <input placeholder="Name:" ref={input => this._author = input} />
+          <textarea
+            placeholder="Comment:"
+            ref={textarea => this._body = textarea}
+            onKeyUp={this._getCharacterCount.bind(this)}></textarea>
         </div>
+        <p>{this.state.characters} characters</p>
         <div className="comment-form-actions">
           <button type="submit">
             Post comment
@@ -132,5 +143,13 @@ class CommentForm extends React.Component {
 
     this._author.value = '';
     this._body.value = '';
+
+    this.setState({ characters: 0 });
+  }
+
+  _getCharacterCount() {
+    this.setState({
+      characters: this._body.value.length
+    });
   }
 }
