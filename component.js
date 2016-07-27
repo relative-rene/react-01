@@ -1,4 +1,5 @@
 class CommentBox extends React.Component {
+
   render() {
     const comments = this._getComments() || [];
     return(
@@ -59,7 +60,7 @@ class Comment extends React.Component {
   render() {
     let commentBody;
 
-    if (!this.state.isAbusive) {
+    if (this.state.isAbusive) {
       commentBody = this.props.body;
     } else {
       commentBody = <em>Content marked as abusive</em>;
@@ -71,14 +72,22 @@ class Comment extends React.Component {
         <img src={this.props.avatarUrl} alt={`${this.props.author}'s picture`} />
 
         <p className="comment-header">{this.props.author}</p>
-        <p className="comment-body">`
+        <p className="comment-body">
           {commentBody}
         </p>
         <div className="comment-actions">
           <a href="#">Delete comment</a>
-          <a href="#">Report as Abuse</a>
+          <a href="#" onClick={this._toggleAbuse.bind(this)}>Report as Abuse</a>
         </div>
       </div>
     );
+  }
+
+  _toggleAbuse(event) {
+    event.preventDefault();
+
+    this.setState({
+      isAbusive: !this.state.isAbusive
+    });
   }
 }
