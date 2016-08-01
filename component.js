@@ -48,6 +48,7 @@ class CommentBox extends React.Component {
                author={comment.author}
                body={comment.body}
                avatarUrl={comment.avatarUrl}
+               onDelete={this._deleteComment.bind(this)}
                key={comment.id} />);
     });
   }
