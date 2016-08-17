@@ -12,8 +12,9 @@
 input 'npm start' from the command line
 
 ## Dev Goal
-I started this app after completing Code Schools React tutorial.  I mainly built it from the slides, so it was a painful slow process with lots of debugging opportunities.
-Ultimately, it was an great way to familiarize myself with the front end framework.
+I started this app after completing Code Schools React introduction.  It was a slow and bug filled process, so it was a great way to familiarize myself with React's front end framework.  
 
 ##Future Development
-Not suprisingly this app does not resemble the CS app. Future development will refactor to resemble the WatchUsBuild series and expand on that tutorial.
+In future development, I will reorganize and refactor current app to resemble WatchUsBuild start point, so I can observe their development process.
+This app can also serve as a great SPA comment boilerplate.
+I will add the ability to like or up vote popular comments.
