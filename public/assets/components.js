@@ -76,7 +76,7 @@ class CommentBox extends React.Component {
       id: this.state.comments.length + 1,
       author: commentAuthor,
       body: commentBody,
-      avatarUrl: 'assets/images/avatars/avatar-default.png'
+      avatarUrl: 'assets/images/default.jpg'
     };
 
     this.setState({
